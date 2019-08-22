@@ -51,5 +51,5 @@ $button.click(function(){
 
 
 //-- Print Messages
-createMessage(1, "Hello Tom...");
-createMessage(0, "Hello Tom 2");
+createMessage(1, "Hello 3Line");
+createMessage(0, "Hello User");
