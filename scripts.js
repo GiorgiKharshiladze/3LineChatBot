@@ -1,7 +1,19 @@
-
 const $chat = $(".chat");
 const $textarea = $(".my-text");
 const $button = $(".button");
+
+function addZero(num) {
+  return (num < 10) ? "0"+num : num;
+}
+
+function getTime(){
+    var date = new Date();
+    return addZero(date.getHours())+':'+addZero(date.getMinutes());
+}
+
+function clearChat(){
+    $chat.empty();
+}
 
 function getMessage(isUser, text){
     let cls = isUser ? ["bg-smk ", "ftr "] : ["bg-wht ", "ftl "];
@@ -16,40 +28,26 @@ function getMessage(isUser, text){
             '</li>';
 }
 
-function createMessage(isUser, text){
-                        
+function sendMessage(isUser, text){    
     $chat.append(getMessage(isUser, text)).scrollTop($chat.prop('scrollHeight'));
     $textarea.val("");
 }
 
-function addZero(num) {
-  return (num < 10) ? "0"+num : num;
-}
-
-function getTime(){
-    var d = new Date();
-    return addZero(d.getHours())+':'+addZero(d.getMinutes());
-}
-
-function clearChat(){
-    $chat.empty();
-}
+// Event Listeners
+$button.click(function(){
+    $textarea.trigger({ type: 'keydown', which: 13, keyCode: 13 });
+});
 
 $textarea.on("keydown", function(e){
-    if (e.which == 13){
+    if (e.which == 13) {
         var text = $(this).val();
         e.preventDefault();
-        if (text !== ""){
-            createMessage(1, text);
+        if (text !== "") {
+            sendMessage(1, text);
         }
     }
 });
 
-$button.click(function(){
-    $textarea.trigger({type: 'keydown', which: 13, keyCode: 13});
-})
-
-
-//-- Print Messages
-createMessage(1, "Hello 3Line");
-createMessage(0, "Hello User");
+// Manual triggers
+sendMessage(1, "Hello 3Line");
+sendMessage(0, "Hello User");
